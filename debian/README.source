@@ -1,0 +1,21 @@
+ins-gerrit for Debian
+---------------------
+
+gerrit*.war downloaded from:
+
+    https://gerrit-releases.storage.googleapis.com/
+
+Debianization based on https://github.com/dnaeon/gerrit-debian/
+
+TODO
+----
+* logrotate
+* automate SSH key generation/distribution
+* add replication targets to known_hosts file
+* gitweb
+* Apache2
+* postgres
+* automatic user creation
+* automatic project creation
+
+ -- Michael Weber <mweber@instartlogic.com>, Mon, 31 Oct 2016 14:40:28 -0700

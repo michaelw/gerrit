@@ -1,0 +1,33 @@
+# -*- mode: sh -*-
+# Defaults for ins-gerrit initscript
+# sourced by /etc/init.d/ins-gerrit
+# installed at /etc/default/ins-gerrit by the maintainer scripts
+
+#
+# This is a POSIX shell fragment
+#
+
+# GERRIT_SITE
+#   Path of the Gerrit site to run.  $GERRIT_SITE/etc/gerrit.config
+#   will be used to configure the process.
+GERRIT_SITE=/opt/ins-gerrit
+
+# GERRIT_WAR
+#   Location of the gerrit.war download that we will execute.  Defaults to
+#   container.war property in $GERRIT_SITE/etc/gerrit.config.
+GERRIT_WAR=/usr/share/ins-gerrit/gerrit.war
+
+#
+# NO_START
+#   If set to "1" disables Gerrit from starting.
+NO_START=1
+
+# START_STOP_DAEMON
+#   If set to "0" disables using start-stop-daemon.  This may need to
+#   be set on SuSE systems.
+
+# Gerrit User details
+GERRIT_HOME=$GERRIT_SITE
+GERRIT_USER=gerrit
+GERRIT_GROUP=gerrit
+GERRIT_FULLNAME="Gerrit Daemon User"

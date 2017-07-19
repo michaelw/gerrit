@@ -1,0 +1,61 @@
+ins-gerrit for Debian
+---------------------
+
+By default, the gerrit daemon will not start, as it usually requires
+further setup, e.g., database, etc.
+
+Edit /etc/default/ins-gerrit after the setup is completed.  Then, re-run
+
+    java -jar /opt/ins-gerrit/bin/gerrit.war init -d /opt/ins-gerrit
+
+Alternatively, put /etc/default/ins-gerrit in place BEFORE installing this package.
+
+Also, remember that the first login to the UI creates an administrator
+account.  If no SSH key is added for that account, it will make
+further modifications very difficult.
+
+Apache2 configuration
+=====================
+
+/etc/apache2/sites-available/ins-gerrit:
+    # Replace @FQDN@ appropriately:
+    <VirtualHost *:80>
+        ServerName @FQDN@
+        RewriteEngine On
+        RewriteRule ^ https://@FQDN@%{REQUEST_URI}
+    </VirtualHost>
+
+    <VirtualHost *:443>
+        ServerName @FQDN@
+        SSLEngine On
+        SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
+        SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+        ProxyVia Off
+        ProxyPreserveHost On
+
+        <Proxy *>
+            Order deny,allow
+            Allow from all
+        </Proxy>
+        AllowEncodedSlashes On
+        ProxyPass / http://127.0.0.1:8081/ nocanon
+    </VirtualHost>
+
+Enable the following apache2 modules:
+
+    # make-ssl-cert generate-default-snakeoil
+
+    a2enmod ssl
+    a2enmod rewrite
+    a2enmod proxy
+    a2enmod proxy_http
+    a2dissite 000-default
+    a2dissite default-ssl
+    a2ensite ins-gerrit
+
+    service apache2 restart
+
+
+
+
+ -- Michael Weber <mweber@instartlogic.com>, Sun, 30 Oct 2016 23:39:09 -0700

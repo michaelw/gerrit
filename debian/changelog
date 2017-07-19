@@ -1,0 +1,22 @@
+ins-gerrit (2.14.1-2) precise; urgency=low
+
+  * switch to source build (bazel)
+  * add its-jira plugin
+  * add its-base plugin
+
+ -- Michael Weber <mweber@instartlogic.com>  Tue, 18 Jul 2017 23:01:59 -0700
+
+ins-gerrit (2.14.1-1) precise; urgency=low
+
+  * new upstream version
+  * auto-download war file based on changelog
+  * add wget build-dep
+  * d/r cleanup
+
+ -- Michael Weber <mweber@instartlogic.com>  Thu, 13 Jul 2017 11:54:26 -0700
+
+ins-gerrit (2.13.2-1) precise; urgency=low
+
+  * Initial release
+
+ -- Michael Weber <mweber@instartlogic.com>  Mon, 31 Oct 2016 15:14:40 -0700
