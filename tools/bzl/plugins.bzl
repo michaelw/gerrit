@@ -9,6 +9,7 @@ CORE_PLUGINS = [
 
 CUSTOM_PLUGINS = [
     "its-jira",
+    "reviewers-by-blame",
 ]
 
 CUSTOM_PLUGINS_TEST_DEPS = [

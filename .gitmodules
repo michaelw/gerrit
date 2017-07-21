@@ -37,3 +37,8 @@
 	path = plugins/its-base
 	url = ../its-base
 	branch = .
+
+[submodule "plugins/reviewers-by-blame"]
+	path = plugins/reviewers-by-blame
+	url = https://gerrit.googlesource.com/plugins/reviewers-by-blame
+	branch = .
