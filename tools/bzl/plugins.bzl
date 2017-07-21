@@ -8,7 +8,6 @@ CORE_PLUGINS = [
 ]
 
 CUSTOM_PLUGINS = [
-    "its-base",
     "its-jira",
 ]
 
