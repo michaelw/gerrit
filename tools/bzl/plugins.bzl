@@ -10,6 +10,7 @@ CORE_PLUGINS = [
 CUSTOM_PLUGINS = [
     "its-jira",
     "reviewers-by-blame",
+    "delete-project"
 ]
 
 CUSTOM_PLUGINS_TEST_DEPS = [

@@ -42,3 +42,8 @@
 	path = plugins/reviewers-by-blame
 	url = https://gerrit.googlesource.com/plugins/reviewers-by-blame
 	branch = .
+
+[submodule "plugins/delete-project"]
+	path = plugins/delete-project
+	url = https://gerrit.googlesource.com/plugins/delete-project
+	branch = stable-2.14
