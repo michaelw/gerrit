@@ -14,21 +14,23 @@
 
 package com.google.gerrit.acceptance.rest.project;
 
+import static com.google.common.truth.Truth.assertThat;
 import static com.google.gerrit.server.group.SystemGroupBackend.ANONYMOUS_USERS;
 import static com.google.gerrit.server.group.SystemGroupBackend.REGISTERED_USERS;
+import static org.eclipse.jgit.lib.Constants.R_HEADS;
 
 import com.google.gerrit.acceptance.AbstractDaemonTest;
-import com.google.gerrit.acceptance.NoHttpd;
+import com.google.gerrit.acceptance.RestResponse;
 import com.google.gerrit.common.data.Permission;
 import com.google.gerrit.extensions.api.projects.BranchApi;
 import com.google.gerrit.extensions.api.projects.BranchInput;
 import com.google.gerrit.extensions.restapi.AuthException;
 import com.google.gerrit.extensions.restapi.ResourceNotFoundException;
+import com.google.gerrit.extensions.restapi.Url;
 import com.google.gerrit.reviewdb.client.Branch;
 import org.junit.Before;
 import org.junit.Test;
 
-@NoHttpd
 public class DeleteBranchIT extends AbstractDaemonTest {
 
   private Branch.NameKey branch;
@@ -86,6 +88,29 @@ public class DeleteBranchIT extends AbstractDaemonTest {
     assertDeleteSucceeds();
   }
 
+  @Test
+  public void deleteBranchByRestWithoutRefsHeadsPrefix() throws Exception {
+    grantDelete();
+    String ref = branch.getShortName();
+    assertThat(ref).doesNotMatch(R_HEADS);
+    assertDeleteByRestSucceeds(ref);
+  }
+
+  @Test
+  public void deleteBranchByRestWithEncodedFullName() throws Exception {
+    grantDelete();
+    assertDeleteByRestSucceeds(Url.encode(branch.get()));
+  }
+
+  @Test
+  public void deleteBranchByRestFailsWithUnencodedFullName() throws Exception {
+    grantDelete();
+    RestResponse r =
+        userRestSession.delete("/projects/" + project.get() + "/branches/" + branch.get());
+    r.assertNotFound();
+    branch().get();
+  }
+
   private void blockForcePush() throws Exception {
     block(Permission.PUSH, ANONYMOUS_USERS, "refs/heads/*").setForce(true);
   }
@@ -104,6 +129,13 @@ public class DeleteBranchIT extends AbstractDaemonTest {
 
   private BranchApi branch() throws Exception {
     return gApi.projects().name(branch.getParentKey().get()).branch(branch.get());
+  }
+
+  private void assertDeleteByRestSucceeds(String ref) throws Exception {
+    RestResponse r = userRestSession.delete("/projects/" + project.get() + "/branches/" + ref);
+    r.assertNoContent();
+    exception.expect(ResourceNotFoundException.class);
+    branch().get();
   }
 
   private void assertDeleteSucceeds() throws Exception {

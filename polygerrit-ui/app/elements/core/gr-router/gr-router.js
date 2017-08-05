@@ -81,9 +81,10 @@
         if (data.hash[0] !== '/') {
           data.hash = '/' + data.hash;
         }
-        var newUrl = data.hash;
-        if (newUrl.indexOf('/VE/') === 0) {
-          newUrl = '/settings' + data.hash;
+        var hash = data.hash;
+        var newUrl = base + hash;
+        if (hash.indexOf('/VE/') === 0) {
+          newUrl = base + '/settings' + data.hash;
         }
         page.redirect(newUrl);
         return;
@@ -240,7 +241,8 @@
     page(/^\/register(\/.*)?/, function(ctx) {
       app.params = {justRegistered: true};
       var path = ctx.params[0] || '/';
-      page.show(path);
+      if (path[0] !== '/') { return; }
+      page.show(base + path);
     });
 
     page.start();
