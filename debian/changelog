@@ -1,17 +1,23 @@
-ins-gerrit (2.14.1-4) precise; urgency=low
+ins-gerrit (2.14.2-1) xenial; urgency=low
+
+  * new upstream release (fixes LDAP login issue?)
+
+ -- Michael Weber <mweber@instartlogic.com>  Fri, 04 Aug 2017 17:11:50 -0700
+
+ins-gerrit (2.14.1-4) xenial; urgency=low
 
   * Add delete-project plugin (branch stable-2.14)
 
  -- James Chuong <jchuong@jchuong-ux>  Mon, 31 Jul 2017 14:10:55 -0700
 
-ins-gerrit (2.14.1-3) precise; urgency=low
+ins-gerrit (2.14.1-3) xenial; urgency=low
 
   * add reviewers-by-blame plugin
   * remove its-base plugin from package (part of its-jira)
 
  -- James Chuong <jchuong@instartlogic.com>  Fri, 21 Jul 2017 11:39:59 -0700
 
-ins-gerrit (2.14.1-2) precise; urgency=low
+ins-gerrit (2.14.1-2) xenial; urgency=low
 
   * switch to source build (bazel)
   * add its-jira plugin
